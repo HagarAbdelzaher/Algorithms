@@ -1,0 +1,103 @@
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+int sequentialSearch(int arr[], int l, int r, int key)
+{
+    if (r < l)
+        return -1;
+    if (arr[l] == key)
+        return l;
+    if (arr[r] == key)
+        return r;
+    return sequentialSearch(arr, l+1,  r-1, key);
+}
+int binarySearch(int arr[] , int low , int hi , int key)
+{
+    if(hi>=low)
+    {
+    int mid = low + (hi-low)/2;
+    if(arr[mid]==key)
+        return mid;
+    else if(arr[mid]>key)
+        return binarySearch( arr , low , mid-1 , key);
+    else
+        return binarySearch(arr , mid+1 , hi , key);
+    }
+    return -1;
+}
+
+void generateRand( int arr[] , int sz)
+{
+     for(int i=0 ; i<sz ; i++ )
+        arr[i] = rand()%sz;
+}
+
+int main()
+{
+    int sz1 = 1000;
+    int arr1[sz1];
+    generateRand(arr1 , sz1);
+
+    int sz2 = 10000 ;
+    int arr2[sz2];
+    generateRand(arr2 , sz2);
+
+    int sz3 = 100000 ;
+    int arr3[sz3];
+    generateRand(arr3 , sz3);
+
+
+   int val;
+   cout<<"enter value you want to search for "<<endl;
+   cin>>val;
+
+   clock_t start1 = clock();
+   sort(arr1 , arr1+sz1);
+   cout<<"using binary search in first array , your value is in index " << binarySearch(arr1 , 0 , sz1 , val) <<endl;
+   clock_t end1 = clock();
+   float clock1 = end1 - start1;
+   double time1 = clock1 / CLOCKS_PER_SEC;
+   cout<<"time taken equals "<< time1 <<endl;
+
+   clock_t start2 = clock();
+   cout<<"using sequential search in first array  , your value is in index " << sequentialSearch(arr1 ,0, sz1,  val) <<endl;
+   clock_t end2 = clock();
+   float clock2 = end2 - start2;
+   double time2 = clock2 / CLOCKS_PER_SEC;
+   cout<<"time taken equals "<< time2 <<endl;
+
+
+   clock_t start3 = clock();
+   sort(arr2 , arr2+sz2);
+   cout<<"using binary search in second array , your value is in index " << binarySearch(arr2 , 0 , sz2 , val) <<endl;
+   clock_t end3 = clock();
+   float clock3 = end3 - start3;
+   double time3 = clock3 / CLOCKS_PER_SEC;
+   cout<<"time taken equals "<< time3 <<endl;
+
+   clock_t start4 = clock();
+   cout<<"using sequential search in second array  , your value is in index" << sequentialSearch(arr2 ,0, sz2,  val) <<endl;
+   clock_t end4 = clock();
+   float clock4 = end4 - start4;
+   double time4 = clock4 / CLOCKS_PER_SEC;
+   cout<<"time taken equals "<< time4 <<endl;
+
+   clock_t start5 = clock();
+   sort(arr3 , arr3+sz3);
+   cout<<"using binary search in third array , your value is in index " << binarySearch(arr3 , 0 , sz3 , val) <<endl;
+   clock_t end5 = clock();
+   float clock5 = end5 - start5;
+   double time5 = clock5 / CLOCKS_PER_SEC;
+   cout<<"time taken equals "<< time5 <<endl;
+
+   clock_t start6 = clock();
+   cout<<"using sequential search in third array  , your value is in index " << sequentialSearch(arr3 ,0, sz3,  val) <<endl;
+   clock_t end6 = clock();
+   float clock6 = end6 - start6;
+   double time6 = clock6 / CLOCKS_PER_SEC;
+   cout<<"time taken equals "<< time6 <<endl;
+
+
+
+}
