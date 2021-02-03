@@ -1,0 +1,106 @@
+#include <iostream>
+using namespace std;
+// this function sorts an array by counting the numbers of zeroes and put those number of zeroes
+//at the beginning and the rest are ones
+void BinarySortOne(int arr[] , int n)
+{
+    int ZeroCounter=0;
+    // count zeroes in input array
+    for( int i=0 ; i<n ; i++)
+    {
+        //increment counter if element = zero
+        if(arr[i]==0)
+            ZeroCounter++;
+    }
+
+    // put the first(zeroCounter) elements in the array as zeroes
+    // and put the rest of the elements as ones
+    for( int i=0 ; i<n ; i++)
+    {
+        if (i<ZeroCounter)
+            arr[i]=0;
+        else
+            arr[i]=1;
+    }
+
+}
+// instead of counting number of zeroes we can loop through the array and if
+//the current element is zero we can place at the next available position 0
+//and then add ones to the rest of the indices
+
+void BinarySortTwo(int arr[] , int n)
+{
+    int currentLocation = 0;
+    for( int i=0 ; i<n ; i++)
+    {
+        if(arr[i]==0)
+            // set zero to the next available location
+            arr[currentLocation++]=0;
+    }
+
+    // set the rest of elements as ones
+    for( int i=currentLocation ; i<n ; i++)
+    {
+        arr[i]=1;
+    }
+}
+
+// this method keeps decrementing the right index while it contains ones
+//and incrementing the left index while it contains zeroes
+//all of this while the left < right and the swap array of left and array of right
+void BinarySortThree( int arr[] , int n)
+{
+    //initializing left and right variables
+    int l =0 , r = n-1;
+    while (l<r)
+    {
+        // keep incrementing left while it contain zeroes
+        while (arr[l]==0 && l<r)
+            l++;
+        //keep decrementing right while it contains ones
+        while (arr[r]==1 && l<r)
+            r--;
+        //swapping , incrementing left & decrementing right
+        if(l<r)
+            {
+                arr[l]=0;
+                arr[r]=1;
+                l++;
+                r--;
+
+            }
+    }
+}
+
+
+
+int main()
+{
+int inputOne[]={1,0,1,0,1,0,0,1,0,1};
+int s1 = sizeof(inputOne)/sizeof(inputOne[0]);
+BinarySortOne(inputOne , s1);
+cout<<"using first algorithm on array {1,0,1,0,1,0,0,1,0,1}"<<endl;
+for( int i=0 ; i<s1 ; i++)
+    cout<<inputOne[i]<<" ";
+cout<<endl;
+
+
+int inputTwo[]={1,0,1,0,1,1,0,1,0,1,0};
+int s2 = sizeof(inputTwo)/sizeof(inputTwo[0]);
+BinarySortTwo(inputTwo , s2);
+cout<<"using second algorithm on array {1,0,1,0,1,1,0,1,0,1,0}"<<endl;
+for( int i=0 ; i<s2 ; i++)
+    cout<<inputTwo[i]<<" ";
+cout<<endl;
+
+
+int inputThree[]={1,1,1,1,1,0,0,0,0,0};
+int s3 = sizeof(inputThree)/sizeof(inputThree[0]);
+BinarySortThree(inputThree , s3);
+cout<<"using third algorithm on array {1,1,1,1,1,0,0,0,0,0}"<<endl;
+for( int i=0 ; i<s3 ; i++)
+    cout<<inputThree[i]<<" ";
+cout<<endl;
+
+
+}
